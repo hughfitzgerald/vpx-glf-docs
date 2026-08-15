@@ -8,9 +8,10 @@ The design borrows heavily from the [Mission Pinball Framework](https://missionp
 If you know MPF's YAML config, most concepts map across directly — but GLF runs entirely inside
 VPX with no external process required.
 
-> **Version.** This documentation describes the current `main` branch of
-> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf). Where the published example tables use older
+> **Version.** This documentation describes the `main` branch of
+> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf) as of **April 14, 2026**. Where the published example tables use older
 > patterns, the differences are called out in [Migrating older tables](appendix/migrating.md).
+
 
 ---
 
