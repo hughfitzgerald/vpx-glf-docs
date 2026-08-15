@@ -9,9 +9,12 @@ If you know MPF's YAML config, most concepts map across directly — but GLF run
 VPX with no external process required.
 
 > **Version.** This documentation describes the `main` branch of
-> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf) as of **April 14, 2026**. Where the published example tables use older
-> patterns, the differences are called out in [Migrating older tables](appendix/migrating.md).
+> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf) as of **April 14, 2026**. Where the published
+> example tables use older patterns, the differences are called out in
+> [Migrating older tables](appendix/migrating.md).
 
+**CAUTION:** This documentation project is AI-generated and unrelated to the development of GLF. Huge
+thanks to the creators of GLF and all developers and creators in the VPX community.
 
 ---
 
