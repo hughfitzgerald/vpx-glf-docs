@@ -14,7 +14,8 @@ VPX with no external process required.
 > [Migrating older tables](appendix/migrating.md).
 
 **CAUTION:** This documentation project is AI-generated and unrelated to the development of GLF. Huge
-thanks to the creators of GLF and all developers and creators in the VPX community.
+thanks to the creators of GLF and all developers and creators in the VPX community. There may be errors
+in this documentation. If there are, please let me know and I can fix them.
 
 ---
 
