@@ -1,7 +1,10 @@
 # Segment display
 
 An alphanumeric or numeric display built from GLF-controlled lights — the classic 7- or 14-segment
-score displays. Each segment is a light, and GLF maps characters onto them.
+score displays. Each segment is a light, and GLF maps characters onto them. Every segment position
+needs its own real, individually-named light object — see
+[Lights are required](#lights-are-required-even-for-flexdmd--or-b2s-only-displays) below before
+you build one.
 
 ```vbscript
 Dim segment_display_p1
@@ -24,8 +27,8 @@ parentheses, not a `CreateGlf…` function.
 |---|---|---|
 | `SegmentType` | — | `"14Segment"` or `"7Segment"` |
 | `SegmentSize` | — | Number of character positions |
-| `LightGroup` | — | Light tag holding this display's segment lights |
-| `LightGroups` | — | Array of tags, for a display spanning several groups |
+| `LightGroup` | — | Name prefix for this display's sequentially-numbered segment lights |
+| `LightGroups` | — | Array of prefixes, for a display spanning several groups |
 | `UpdateMethod` | — | `"stack"` for priority-stacked text entries |
 | `DefaultColor` | white | Segment colour |
 | `UseDotsForCommas` | `False` | Render commas using the decimal points |
@@ -35,15 +38,37 @@ parentheses, not a `CreateGlf…` function.
 | `ExternalFlexDmdSegmentIndex` | — | Offset when mirroring to a FlexDMD |
 | `ExternalB2SSegmentIndex` | — | Offset when mirroring to a B2S backglass |
 
-## Lights and tags
+## Lights are required, even for FlexDMD- or B2S-only displays
 
-The segment lights are identified by a tag, set in each light's **BlinkPattern** field in VPX (see
-[Lights & shows](../concepts/lights-and-shows.md#tags)). A 14-segment, 8-character display needs
-8 × 15 lights, all tagged `p1_seg`, in order.
+A segment display is not a wrapper you can point purely at an external target. **GLF requires a
+real, named VPX light object for every segment position, whether or not you care about the
+in-table lighting at all.**
 
-Ordering is positional — GLF walks the tagged lights in collection order and assigns them to
-segments. Getting the order wrong produces scrambled characters, which is the usual symptom of a
-mis-tagged display.
+This is different from how tags work elsewhere in GLF ([Lights & shows](../concepts/lights-and-shows.md#tags)).
+`LightGroup` is not a light tag — it's a **name prefix**. GLF builds each light's expected name by
+concatenating the prefix with a 1-based index (`p1_seg1`, `p1_seg2`, `p1_seg3`, …) and evaluates
+that name directly against the table's objects. A 14-segment, 8-character display needs 15
+sequentially-numbered lights per character — 120 lights in total, named `p1_seg1` through
+`p1_seg120` — and each one must:
+
+- exist as an actual VPX **Light** object on the table, and
+- be a member of the `glf_lights` collection (so GLF's internal light registry knows about it).
+
+If a light in the sequence is missing, or exists but isn't in `glf_lights`, GLF errors when it
+tries to set that segment's colour — this isn't a soft failure like the B2S/FlexDMD pushes below;
+it will throw at runtime. There's no config path that skips this and drives only an external
+display.
+
+In practice this means: even if the display will only ever be seen through FlexDMD or a B2S
+backglass and never looked at on the playfield, you still model and place all 120 (or however many)
+tiny light objects, add them to `glf_lights`, and name them correctly. What you *can* do is make
+them invisible or trivial — off-playfield, zero-intensity, or hidden behind art — since nothing
+requires them to be seen; GLF only needs them to exist and answer to `.Color`.
+
+Ordering is positional — index 1 is the first light checked, and GLF walks forward until a name
+in the sequence doesn't resolve to a `Light`. Getting the order wrong, or leaving a gap in the
+numbering, produces scrambled characters or an outright error, which is the usual symptom of a
+misnamed light in the sequence.
 
 ## Multi-display groups
 
@@ -64,6 +89,13 @@ segment_display_all.DefaultTransitionUpdateHz = 10
 
 Now `"all"` is a 32-character display across all four player windows — the standard way to show
 mode text on an EM-style backglass. `SegmentSize` must equal the total across the groups.
+
+With `LightGroups`, numbering resets to 1 at the start of each prefix (`p1_seg1`… then
+`p2_seg1`…), and GLF moves to the next prefix the moment a name in the current sequence fails to
+resolve to a light. That means each group's own numbering must be perfectly contiguous — a missing
+or misnamed light partway through `p1_seg` doesn't error there, it silently rolls the rest of that
+group's segments into `p2_seg`'s numbering, scrambling both displays without any error to point at
+the cause.
 
 Displays can overlap: the same lights can belong to `player1` and to `all`. The
 [display stack](../players/segment-display-player.md#the-display-stack) resolves which text wins by
