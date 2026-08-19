@@ -1,5 +1,7 @@
 # VPX Game Logic Framework (GLF) — Usage Documentation
 
+*CAUTION:* This documentation project is AI-generated and unrelated to the development of GLF. Huge thanks to the creators of GLF and all developers and creators in the VPX community. There may be errors in this documentation. If there are, please let me know and I can fix them.
+
 GLF is a VBScript framework for building **original** Visual Pinball X tables. Instead of writing
 game logic by hand, you declare it: modes, shots, timers, multiballs, light shows and displays are
 all configured as objects that listen for and post events.
@@ -9,7 +11,7 @@ If you know MPF's YAML config, most concepts map across directly — but GLF run
 VPX with no external process required.
 
 > **Version.** This documentation describes the current `main` branch of
-> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf). Where the published example tables use older
+> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf) as of *April 14, 2026*. Where the published example tables use older
 > patterns, the differences are called out in [Migrating older tables](appendix/migrating.md).
 
 ---
