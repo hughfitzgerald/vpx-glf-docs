@@ -1,9 +1,5 @@
 # VPX Game Logic Framework (GLF) — Usage Documentation
 
-**CAUTION:** This documentation project is AI-generated and unrelated to the development of GLF. Huge
-thanks to the creators of GLF and all developers and creators in the VPX community. There may be errors
-in this documentation. If there are, please let me know and I can fix them.
-
 GLF is a VBScript framework for building **original** Visual Pinball X tables. Instead of writing
 game logic by hand, you declare it: modes, shots, timers, multiballs, light shows and displays are
 all configured as objects that listen for and post events.
@@ -12,10 +8,9 @@ The design borrows heavily from the [Mission Pinball Framework](https://missionp
 If you know MPF's YAML config, most concepts map across directly — but GLF runs entirely inside
 VPX with no external process required.
 
-> **Version.** This documentation describes the `main` branch of
-> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf) as of **April 14, 2026**. Where the published
-> example tables use older patterns, the differences are called out in
-> [Migrating older tables](appendix/migrating.md).
+> **Version.** This documentation describes the current `main` branch of
+> [mpcarr/vpx-glf](https://github.com/mpcarr/vpx-glf). Where the published example tables use older
+> patterns, the differences are called out in [Migrating older tables](appendix/migrating.md).
 
 ---
 
@@ -94,6 +89,7 @@ Read these before the reference sections — nearly every device is configured i
 | [Event reference](appendix/event-reference.md) | Every event GLF posts, in one table |
 | [Debugging](appendix/debugging.md) | Logs, the monitor, table options |
 | [Migrating older tables](appendix/migrating.md) | Changes since the published example tables |
+| [A local FlexDMD controller instead of BCP](appendix/custom-bcp-controller.md) | Driving slides/widgets without a separate media controller process |
 
 ---
 
