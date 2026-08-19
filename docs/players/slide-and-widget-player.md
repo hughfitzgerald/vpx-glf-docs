@@ -64,4 +64,5 @@ End With
 
 ## See also
 
-[Modes](../concepts/modes.md) · [High score](../mode-devices/high-score.md)
+[Modes](../concepts/modes.md) · [High score](../mode-devices/high-score.md) ·
+[A local FlexDMD controller instead of BCP](../appendix/custom-bcp-controller.md)
